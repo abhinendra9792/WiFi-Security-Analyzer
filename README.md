@@ -1,4 +1,4 @@
-# WiFi Security Analyzer Backend
+# WiFi Security Analyzer
 
 A complete Python Flask REST API backend for WiFi network scanning and security auditing.
 
