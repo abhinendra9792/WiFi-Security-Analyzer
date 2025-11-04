@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-container">
+    <div class="page-header">
+        <h1><i class="fas fa-network-wired"></i> Network Management</h1>
+        <button id="scanNetworksBtn" class="btn btn-primary">
+            <i class="fas fa-broadcast-tower"></i> Scan Networks
+        </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="card filters-card">
+        <div class="filters">
+            <div class="filter-group">
+                <label>Encryption Type</label>
+                <select id="encryptionFilter" class="form-select">
+                    <option value="">All Types</option>
+                    <option value="Open">Open</option>
+                    <option value="WEP">WEP</option>
+                    <option value="WPA">WPA</option>
+                    <option value="WPA2">WPA2</option>
+                    <option value="WPA3">WPA3</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Signal Strength</label>
+                <select id="signalFilter" class="form-select">
+                    <option value="">All Signals</option>
+                    <option value="excellent">Excellent (-30 to -50)</option>
+                    <option value="good">Good (-50 to -60)</option>
+                    <option value="fair">Fair (-60 to -70)</option>
+                    <option value="weak">Weak (-70+)</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Search SSID</label>
+                <input type="text" id="searchInput" class="form-input" placeholder="Search by SSID...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Networks Grid -->
+    <div id="networksGrid" class="networks-grid">
+        <!-- Networks will be loaded here -->
+    </div>
+</div>
+
+<!-- Network Detail Modal -->
+<div id="networkModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Network Details</h2>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Details will be loaded here -->
+        </div>
+        <div class="modal-footer">
+            <button id="auditNetworkBtn" class="btn btn-primary">
+                <i class="fas fa-shield-alt"></i> Run Security Audit
+            </button>
+            <button class="btn btn-secondary modal-close">Close</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/networks.js') }}"></script>
+{% endblock %}

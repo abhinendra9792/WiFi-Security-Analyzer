@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-container">
+    <div class="page-header">
+        <h1><i class="fas fa-shield-alt"></i> Security Audits</h1>
+        <button id="exportBtn" class="btn btn-primary">
+            <i class="fas fa-download"></i> Export Results
+        </button>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="audit-summary">
+        <div class="summary-card low-risk">
+            <i class="fas fa-check-circle"></i>
+            <div>
+                <h3 id="lowRiskCount">0</h3>
+                <p>Low Risk</p>
+            </div>
+        </div>
+        <div class="summary-card medium-risk">
+            <i class="fas fa-exclamation-circle"></i>
+            <div>
+                <h3 id="mediumRiskCount">0</h3>
+                <p>Medium Risk</p>
+            </div>
+        </div>
+        <div class="summary-card high-risk">
+            <i class="fas fa-times-circle"></i>
+            <div>
+                <h3 id="highRiskCount">0</h3>
+                <p>High Risk</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audits List -->
+    <div class="card">
+        <div class="card-header">
+            <h2>Audit History</h2>
+            <button id="refreshAuditsBtn" class="btn btn-secondary btn-sm">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
+        <div class="card-body">
+            <div id="auditsList">
+                <!-- Audits will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Audit Detail Modal -->
+<div id="auditModal" class="modal">
+    <div class="modal-content large">
+        <div class="modal-header">
+            <h2>Audit Details</h2>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body" id="auditModalBody">
+            <!-- Details will be loaded here -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary modal-close">Close</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/audits.js') }}"></script>
+{% endblock %}

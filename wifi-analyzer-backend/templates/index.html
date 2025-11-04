@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <!-- Header -->
+    <div class="dashboard-header">
+        <h1><i class="fas fa-chart-line"></i> Dashboard</h1>
+        <button id="scanBtn" class="btn btn-primary">
+            <i class="fas fa-broadcast-tower"></i> Start Scan
+        </button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon blue">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="totalNetworks">0</h3>
+                <p>Networks Found</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon green">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="secureNetworks">0</h3>
+                <p>Secure Networks</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon orange">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="vulnerableNetworks">0</h3>
+                <p>Vulnerable Networks</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon red">
+                <i class="fas fa-unlock"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="openNetworks">0</h3>
+                <p>Open Networks</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content-grid">
+        <!-- Networks Table -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-list"></i> Scanned Networks</h2>
+                <div class="card-actions">
+                    <button id="refreshBtn" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="networksList" class="networks-list">
+                    <div class="empty-state">
+                        <i class="fas fa-satellite-dish fa-3x"></i>
+                        <p>No networks scanned yet</p>
+                        <small>Click "Start Scan" to discover nearby WiFi networks</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Overview -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-chart-pie"></i> Security Overview</h2>
+            </div>
+            <div class="card-body">
+                <div id="securityChart">
+                    <canvas id="encryptionChart"></canvas>
+                </div>
+                <div class="legend" id="chartLegend"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Audits -->
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-history"></i> Recent Security Audits</h2>
+            <a href="/audits" class="btn btn-link">View All</a>
+        </div>
+        <div class="card-body">
+            <div id="recentAudits" class="audits-list">
+                <div class="empty-state">
+                    <i class="fas fa-clipboard-check fa-3x"></i>
+                    <p>No audits performed yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <p>Scanning networks...</p>
+</div>
+
+<!-- Network Detail Modal -->
+<div id="networkModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-info-circle"></i> Network Details</h2>
+            <button class="modal-close" onclick="closeModal('networkModal')">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Content loaded dynamically -->
+        </div>
+        <div class="modal-footer">
+            <button id="auditNetworkBtn" class="btn btn-primary">
+                <i class="fas fa-shield-alt"></i> Run Security Audit
+            </button>
+            <button class="btn btn-secondary" onclick="closeModal('networkModal')">Close</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    // Debug: Check if scripts are loaded
+    console.log('Index page loaded');
+    console.log('API available:', typeof api !== 'undefined');
+    console.log('Chart available:', typeof Chart !== 'undefined');
+</script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

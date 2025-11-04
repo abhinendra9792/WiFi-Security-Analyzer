@@ -1,0 +1,302 @@
+{
+  "info": {
+    "name": "WiFi Security Analyzer API",
+    "description": "Complete API collection for WiFi Security Analyzer Backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "mysecrettoken",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Public Endpoints",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/health",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["health"]
+            },
+            "description": "Check if the API is running"
+          },
+          "response": []
+        },
+        {
+          "name": "Root - API Info",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": [""]
+            },
+            "description": "Get API information and available endpoints"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Network Management",
+      "item": [
+        {
+          "name": "Scan Networks",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/networks/scan",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "networks", "scan"]
+            },
+            "description": "Simulate WiFi network scan and save results to database"
+          },
+          "response": []
+        },
+        {
+          "name": "List All Networks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/networks",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "networks"]
+            },
+            "description": "Get all scanned networks from database"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Network by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/networks/:network_id",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "networks", ":network_id"],
+              "variable": [
+                {
+                  "key": "network_id",
+                  "value": "your-network-id-here",
+                  "description": "Network UUID from scan results"
+                }
+              ]
+            },
+            "description": "Get details of a specific network"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Security Audits",
+      "item": [
+        {
+          "name": "Start Audit",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/audits/start/:bssid",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "audits", "start", ":bssid"],
+              "variable": [
+                {
+                  "key": "bssid",
+                  "value": "AA:BB:CC:11:22:33",
+                  "description": "Network BSSID (MAC address)"
+                }
+              ]
+            },
+            "description": "Start security audit for a specific network"
+          },
+          "response": []
+        },
+        {
+          "name": "List All Audits",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/audits",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "audits"]
+            },
+            "description": "Get all audit results from database"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Audit by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/audits/:audit_id",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "audits", ":audit_id"],
+              "variable": [
+                {
+                  "key": "audit_id",
+                  "value": "your-audit-id-here",
+                  "description": "Audit UUID from audit results"
+                }
+              ]
+            },
+            "description": "Get details of a specific audit"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Data Export",
+      "item": [
+        {
+          "name": "Export as JSON",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/audits/export?format=json",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "audits", "export"],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "json",
+                  "description": "Export format: json or csv"
+                }
+              ]
+            },
+            "description": "Export all audit results as JSON"
+          },
+          "response": []
+        },
+        {
+          "name": "Export as CSV",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/audits/export?format=csv",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "audits", "export"],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "csv",
+                  "description": "Export format: json or csv"
+                }
+              ]
+            },
+            "description": "Export all audit results as CSV file"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Authentication Tests",
+      "item": [
+        {
+          "name": "Test No Auth (Should Fail)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/networks",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "networks"]
+            },
+            "description": "Test endpoint without authentication - should return 401"
+          },
+          "response": []
+        },
+        {
+          "name": "Test Invalid Token (Should Fail)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "wrongtoken",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/networks",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "networks"]
+            },
+            "description": "Test endpoint with wrong token - should return 403"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000",
+      "type": "string"
+    },
+    {
+      "key": "api_token",
+      "value": "mysecrettoken",
+      "type": "string"
+    }
+  ]
+}
